@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloorPlan to 3D - AI-Powered Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .upload-section.hidden {
+            display: none;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        #upload-container {
+            display: flex;
+            gap: 2rem;
+            width: 90%;
+            max-width: 1400px;
+        }
+
+        #controls {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            flex-basis: 35%;
+        }
+
+        #results {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            flex-basis: 65%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #image-container {
+            position: relative;
+            max-width: 100%;
+        }
+
+        #preview,
+        #canvas {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #json-output {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: "Courier New", Courier, monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #loader {
+            display: none;
+            margin-top: 1rem;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0a9396;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 3D Viewer Section */
+        .viewer-section {
+            display: none;
+            height: 100vh;
+        }
+
+        .viewer-section.active {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-shadow: none;
+        }
+
+        .viewer-container {
+            flex: 1;
+            position: relative;
+            background: #f0f0f0;
+        }
+
+        #viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-item {
+            margin-bottom: 15px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 0;
+        }
+
+        .btn:hover {
+            background: #218838;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-back {
+            background: #dc3545;
+        }
+
+        .btn-back:hover {
+            background: #c82333;
+        }
+
+        .stats {
+            background: #e8f4f8;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .stat-label {
+            color: #555;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .viewer-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: none;
+            z-index: 100;
+        }
+
+        .viewer-loader.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        .load-message {
+            color: #333;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Upload Section -->
+    <div class="upload-section" id="uploadSection">
+        <div class="header">
+            <h1>🏗️ FloorPlan to 3D</h1>
+            <p class="tagline">Transform your 2D floor plans into interactive 3D models using AI</p>
+        </div>
+
+        <div id="upload-container">
+            <div id="controls">
+                <h2 style="color: #667eea; margin-bottom: 1rem;">Upload Floor Plan</h2>
+                <p style="color: #666; margin-bottom: 1.5rem;">Select a floor plan image to analyze with Mask R-CNN AI
+                </p>
+                <input type="file" id="image-input" accept="image/*" style="margin-bottom: 1rem;">
+
+                <div style="background: #e8f4f8; padding: 1rem; border-radius: 8px; margin-top: 1.5rem;">
+                    <p style="font-size: 0.9em; color: #0a9396; margin: 0;">
+                        <strong>ℹ️ Auto-Furniture Detection:</strong><br>
+                        System will automatically use reference render for accurate furniture placement
+                    </p>
+                </div>
+
+                <button id="predict-btn" disabled>🔍 Analyze Floor Plan</button>
+                <div id="loader"></div>
+            </div>
+            <div id="results">
+                <h2 style="color: #667eea; margin-bottom: 1rem;">Detection Results</h2>
+                <div id="image-container">
+                    <img id="preview" src="" alt="Upload a floor plan to see preview" style="display: none;">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <h3 style="color: #667eea; margin-top: 1rem;">Detection Data (JSON)</h3>
+                <pre id="json-output">Upload and analyze a floor plan to see detection results here.</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Viewer Section -->
+    <div class="viewer-section" id="viewerSection">
+        <div class="sidebar">
+            <h1>🏗️ FloorPlan to 3D</h1>
+
+            <div class="section">
+                <button class="btn btn-back" id="backBtn">⬅️ Back to Upload</button>
+            </div>
+
+            <div class="section" id="statsSection" style="display:none;">
+                <div class="section-title">Detection Stats</div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Walls:</span>
+                        <span class="stat-value" id="wallCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Doors:</span>
+                        <span class="stat-value" id="doorCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Windows:</span>
+                        <span class="stat-value" id="windowCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Furniture:</span>
+                        <span class="stat-value" id="furnitureCount">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Reference Images</div>
+                <div class="controls">
+                    <button class="btn" id="show2DBtn" style="background: #667eea; margin-bottom: 10px;">Show Images</button>
+                    <div id="floorPlanPreview" style="display: none; margin-top: 10px;">
+                        <div style="margin-bottom: 15px;">
+                            <img id="original2D" src="" style="width: 100%; border-radius: 5px; margin-bottom: 5px;" alt="Original 2D Plan">
+                            <p style="font-size: 10px; color: #666; text-align: center; font-weight: 600;">Original Floor Plan</p>
+                        </div>
+                        <div id="geminiRenderPreview" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid #e0e0e0;">
+                            <img id="geminiRender" src="" style="width: 100%; border-radius: 5px; margin-bottom: 5px;" alt="Gemini Render">
+                            <p style="font-size: 10px; color: #667eea; text-align: center; font-weight: 600;">Gemini Reference Render</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Model Controls (Live Updates ✨)</div>
+                <div class="controls">
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Wall Height</span>
+                            <span id="wallHeightValue">300</span>
+                        </div>
+                        <input type="range" id="wallHeight" min="100" max="500" value="300" step="10">
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Wall Thickness</span>
+                            <span id="wallThicknessValue">15</span>
+                        </div>
+                        <input type="range" id="wallThickness" min="5" max="30" value="15" step="1">
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Door Height</span>
+                            <span id="doorHeightValue">80</span>
+                        </div>
+                        <input type="range" id="doorHeight" min="50" max="150" value="80" step="5">
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Window Height</span>
+                            <span id="windowHeightValue">40</span>
+                        </div>
+                        <input type="range" id="windowHeight" min="20" max="80" value="40" step="5">
+                    </div>
+                    <div class="info" style="margin-top: 10px;">
+                        ⚡ All changes apply instantly in real-time!
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Position Control ⬆️⬇️</div>
+                <div class="controls">
+                    <div class="info" style="margin-bottom: 10px; background: #e3f2fd; border-left: 3px solid #2196F3;">
+                        💡 <strong>Click</strong> on a door or window, then use arrows to move it
+                    </div>
+                    <div
+                        style="display: flex; flex-direction: column; align-items: center; gap: 5px; margin-bottom: 15px;">
+                        <button id="moveUpBtn" class="btn" style="width: 60px; height: 40px; padding: 5px; margin: 0;"
+                            disabled>⬆️</button>
+                        <div style="font-size: 11px; color: #666; margin: 5px 0;">
+                            <span id="selectedObjectName">No object selected</span>
+                        </div>
+                        <button id="moveDownBtn" class="btn" style="width: 60px; height: 40px; padding: 5px; margin: 0;"
+                            disabled>⬇️</button>
+                    </div>
+                    <div style="display: flex; gap: 5px; margin-top: 10px;">
+                        <button id="deselectBtn" class="btn"
+                            style="background: #dc3545; font-size: 12px; padding: 8px; margin: 0;" disabled>✖️
+                            Deselect</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Color Customization 🎨</div>
+                <div class="controls">
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Wall Color</span>
+                        </div>
+                        <input type="color" id="wallColor" value="#8B4513"
+                            style="width: 100%; height: 35px; cursor: pointer;">
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Door Color</span>
+                        </div>
+                        <input type="color" id="doorColor" value="#654321"
+                            style="width: 100%; height: 35px; cursor: pointer;">
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">
+                            <span>Window Color</span>
+                        </div>
+                        <input type="color" id="windowColor" value="#87CEEB"
+                            style="width: 100%; height: 35px; cursor: pointer;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Display Options</div>
+                <div class="controls">
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="wireframe">
+                            <span>Wireframe Mode</span>
+                        </label>
+                    </div>
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showGrid" checked>
+                            <span>Show Grid</span>
+                        </label>
+                    </div>
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="autoRotate">
+                            <span>Auto Rotate</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Controls</div>
+                <div class="info">
+                    <strong>🖱️ Select Objects:</strong> Click on doors/windows to select<br>
+                    <strong>⬆️⬇️ Move Objects:</strong> Use arrow buttons above<br>
+                    <strong>Left Mouse:</strong> Rotate view<br>
+                    <strong>Right Mouse:</strong> Pan view<br>
+                    <strong>Scroll:</strong> Zoom
+                </div>
+                <div class="info" style="margin-top: 10px; background: #fff3cd; border-left: 3px solid #ffc107;">
+                    💡 <strong>Tip:</strong> Click to select, then use arrow buttons to move doors/windows vertically!
+                </div>
+            </div>
+        </div>
+
+        <div class="viewer-container">
+            <div id="viewer"></div>
+            <div class="viewer-loader" id="viewerLoader">
+                <div class="spinner"></div>
+                <div class="load-message">Generating 3D model...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script>
+        // Upload Section Variables
+        const imageInput = document.getElementById('image-input');
+        const predictBtn = document.getElementById('predict-btn');
+        const preview = document.getElementById('preview');
+        const canvas = document.getElementById('canvas');
+        const jsonOutput = document.getElementById('json-output');
+        const loader = document.getElementById('loader');
+        const ctx = canvas.getContext('2d');
+
+        const uploadSection = document.getElementById('uploadSection');
+        const viewerSection = document.getElementById('viewerSection');
+        const backBtn = document.getElementById('backBtn');
+
+        let currentImage = null;
+        let detectionData = null;
+        let uploadedImageDataURL = null;
+
+        const CLASS_COLORS = {
+            'wall': 'rgba(238, 108, 77, 0.7)',
+            'window': 'rgba(6, 163, 213, 0.7)',
+            'door': 'rgba(255, 203, 5, 0.7)'
+        };
+
+        // 3D Viewer Variables
+        let scene, camera, renderer, controls, gridHelper;
+        let currentModel = null;
+        let currentJsonData = null;
+
+        let originalWallHeight = 300;
+        let originalDoorHeight = 80;
+        let originalWindowHeight = 40;
+        let originalWallThickness = 15;
+
+        let wallMeshes = [];
+        let doorMeshes = [];
+        let windowMeshes = [];
+
+        // Store original transforms for each mesh
+        let meshOriginalTransforms = new Map();
+
+        // Selection variables
+        let selectedObject = null;
+        let hoveredObject = null;
+        let raycaster = new THREE.Raycaster();
+        let mouse = new THREE.Vector2();
+
+        // Upload Section Logic
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadedImageDataURL = e.target.result; // Save for later use
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    preview.onload = () => {
+                        canvas.width = preview.offsetWidth;
+                        canvas.height = preview.offsetHeight;
+                    };
+                    predictBtn.disabled = false;
+                    currentImage = file;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    jsonOutput.textContent = 'Click "Analyze Floor Plan" to detect walls, doors, and windows.';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        predictBtn.addEventListener('click', async () => {
+            if (!currentImage) return;
+
+            const formData = new FormData();
+            formData.append('image', currentImage);
+
+            predictBtn.disabled = true;
+            loader.style.display = 'block';
+            jsonOutput.textContent = 'Analyzing image with Mask R-CNN & Gemini AI...';
+
+            try {
+                // Use the new complete detection endpoint
+                const response = await fetch('/detect-complete', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                // Extract detection data from the response structure
+                // The backend returns { success: true, structures: {...}, furniture: {...} }
+                // But we also need the raw detection data for drawing boxes
+                // Let's fetch the generated JSON file to get the full data for visualization
+
+                // Generate photorealistic render with Gemini FIRST
+                console.log('[INFO] Step 1: Generating photorealistic render with Gemini...');
+                try {
+                    const renderFormData = new FormData();
+                    renderFormData.append('image', currentImage);
+
+                    const renderResponse = await fetch('/generate-render', {
+                        method: 'POST',
+                        body: renderFormData
+                    });
+
+                    if (renderResponse.ok) {
+                        const renderResult = await renderResponse.json();
+                        console.log('[OK] Render generated:', renderResult.render_path);
+                        console.log('[INFO] Step 2: Now detecting furniture from generated render...');
+                    } else {
+                        console.warn('[WARNING] Render generation failed, will use reference or auto-placement');
+                    }
+                } catch (renderError) {
+                    console.warn('[WARNING] Render generation error:', renderError);
+                }
+
+                // Now re-run detection to get furniture from the generated render
+                console.log('[INFO] Step 3: Re-analyzing with furniture detection...');
+                const finalResponse = await fetch('/detect-complete', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const jsonResponse = await fetch('/disney_1.json');
+                detectionData = await jsonResponse.json();
+
+                jsonOutput.textContent = JSON.stringify(detectionData, null, 2);
+                drawBoxes(detectionData);
+
+                // Auto-transition to 3D viewer
+                setTimeout(() => {
+                    show3DViewer(detectionData);
+                }, 1000);
+
+            } catch (error) {
+                console.error('Prediction failed:', error);
+                jsonOutput.textContent = `Error: ${error.message}`;
+            } finally {
+                predictBtn.disabled = false;
+                loader.style.display = 'none';
+            }
+        });
+
+        function drawBoxes(data) {
+            const img = new Image();
+            img.src = preview.src;
+            img.onload = () => {
+                const scaleX = preview.offsetWidth / data.Width;
+                const scaleY = preview.offsetHeight / data.Height;
+
+                canvas.width = preview.offsetWidth;
+                canvas.height = preview.offsetHeight;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                data.points.forEach((point, index) => {
+                    const className = data.classes[index].name;
+                    ctx.strokeStyle = CLASS_COLORS[className] || 'rgba(128, 128, 128, 0.7)';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(point.x1 * scaleX, point.y1 * scaleY, (point.x2 - point.x1) * scaleX, (point.y2 - point.y1) * scaleY);
+                });
+            };
+        }
+
+        // Show 3D Viewer
+        async function show3DViewer(data) {
+            uploadSection.classList.add('hidden');
+            viewerSection.classList.add('active');
+
+            currentJsonData = data;
+
+            // Update stats
+            const wallCount = data.classes.filter(c => c.name === 'wall').length;
+            const doorCount = data.classes.filter(c => c.name === 'door').length;
+            const windowCount = data.classes.filter(c => c.name === 'window').length;
+
+            document.getElementById('wallCount').textContent = wallCount;
+            document.getElementById('doorCount').textContent = doorCount;
+            document.getElementById('windowCount').textContent = windowCount;
+
+            // Update furniture count
+            const furnitureCount = data.furniture ? data.furniture.length : 0;
+            document.getElementById('furnitureCount').textContent = furnitureCount;
+            document.getElementById('statsSection').style.display = 'block';
+
+            // Set original 2D floor plan for preview
+            if (uploadedImageDataURL) {
+                document.getElementById('original2D').src = uploadedImageDataURL;
+            }
+
+            // Try to show generated render, fallback to default reference
+            const generatedRenderPath = 'generated_render.png';
+            const defaultRenderPath = 'unnamed (3).png';
+
+            // Check if generated render exists
+            fetch(generatedRenderPath, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('geminiRender').src = generatedRenderPath + '?t=' + new Date().getTime();
+                        console.log('[OK] Displaying Gemini-generated render');
+                    } else {
+                        document.getElementById('geminiRender').src = defaultRenderPath;
+                        console.log('[INFO] Using default reference render');
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('geminiRender').src = defaultRenderPath;
+                    console.log('[INFO] Using default reference render');
+                });
+
+            document.getElementById('geminiRenderPreview').style.display = 'block';
+
+            // Initialize 3D viewer if not already done
+            if (!scene) {
+                init3DViewer();
+            }
+
+            // Generate 3D model
+            await generateGLBModel();
+        }
+
+        // Toggle 2D floor plan preview
+        document.getElementById('show2DBtn').addEventListener('click', () => {
+            const preview = document.getElementById('floorPlanPreview');
+            const btn = document.getElementById('show2DBtn');
+            if (preview.style.display === 'none') {
+                preview.style.display = 'block';
+                btn.textContent = 'Hide Images';
+            } else {
+                preview.style.display = 'none';
+                btn.textContent = 'Show Images';
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            viewerSection.classList.remove('active');
+            uploadSection.classList.remove('hidden');
+        });
+
+        // 3D Viewer Logic
+        function init3DViewer() {
+            const viewer = document.getElementById('viewer');
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f0f0);
+
+            camera = new THREE.PerspectiveCamera(
+                75,
+                viewer.clientWidth / viewer.clientHeight,
+                0.1,
+                10000
+            );
+            camera.position.set(500, 400, 500);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            viewer.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(100, 200, 100);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            directionalLight.shadow.camera.near = 0.5;
+            directionalLight.shadow.camera.far = 1000;
+            directionalLight.shadow.camera.left = -500;
+            directionalLight.shadow.camera.right = 500;
+            directionalLight.shadow.camera.top = 500;
+            directionalLight.shadow.camera.bottom = -500;
+            scene.add(directionalLight);
+
+            gridHelper = new THREE.GridHelper(1000, 50, 0x999999, 0xcccccc);
+            scene.add(gridHelper);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 10;
+            controls.maxDistance = 2000;
+
+            window.addEventListener('resize', onWindowResize, false);
+
+            // Add selection event listeners
+            renderer.domElement.addEventListener('mousedown', onMouseDown, false);
+            renderer.domElement.addEventListener('mousemove', onMouseMove, false);
+
+            animate();
+        }
+
+        async function generateGLBModel() {
+            const loaderDiv = document.getElementById('viewerLoader');
+            loaderDiv.classList.add('active');
+
+            try {
+                const customData = {
+                    ...currentJsonData,
+                    wallHeight: parseInt(document.getElementById('wallHeight').value),
+                    wallThickness: parseInt(document.getElementById('wallThickness').value),
+                    averageDoor: parseInt(document.getElementById('doorHeight').value),
+                    windowHeight: parseInt(document.getElementById('windowHeight').value)
+                };
+
+                const response = await fetch('/generate-glb-custom', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(customData)
+                });
+
+                if (!response.ok) throw new Error('GLB generation failed');
+
+                loadGLBModel('output.glb?t=' + Date.now());
+
+            } catch (error) {
+                alert('Error: ' + error.message);
+                loaderDiv.classList.remove('active');
+            }
+        }
+
+        function loadGLBModel(url) {
+            const loader = new THREE.GLTFLoader();
+            const loaderDiv = document.getElementById('viewerLoader');
+
+            if (currentModel) {
+                scene.remove(currentModel);
+                currentModel = null;
+            }
+
+            loader.load(
+                url,
+                function (gltf) {
+                    currentModel = gltf.scene;
+
+                    wallMeshes = [];
+                    doorMeshes = [];
+                    windowMeshes = [];
+                    meshOriginalTransforms.clear();
+
+                    currentModel.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+
+                            // Store original transform
+                            meshOriginalTransforms.set(child, {
+                                position: child.position.clone(),
+                                scale: child.scale.clone(),
+                                rotation: child.rotation.clone()
+                            });
+
+                            const name = child.name.toLowerCase();
+                            if (name.includes('wall')) {
+                                wallMeshes.push(child);
+                            } else if (name.includes('door')) {
+                                doorMeshes.push(child);
+                            } else if (name.includes('window')) {
+                                windowMeshes.push(child);
+                            }
+                        }
+                    });
+
+                    originalWallHeight = parseInt(document.getElementById('wallHeight').value);
+                    originalDoorHeight = parseInt(document.getElementById('doorHeight').value);
+                    originalWindowHeight = parseInt(document.getElementById('windowHeight').value);
+                    originalWallThickness = parseInt(document.getElementById('wallThickness').value);
+
+                    scene.add(currentModel);
+
+                    const box = new THREE.Box3().setFromObject(currentModel);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                    cameraZ *= 1.5;
+
+                    camera.position.set(center.x + cameraZ, center.y + cameraZ, center.z + cameraZ);
+                    camera.lookAt(center);
+                    controls.target.copy(center);
+                    controls.update();
+
+                    loaderDiv.classList.remove('active');
+                },
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function (error) {
+                    console.error('Error loading GLB:', error);
+                    loaderDiv.classList.remove('active');
+                }
+            );
+        }
+
+        // Live update functions
+        function updateWallHeight(newHeight) {
+            if (!currentModel) return;
+            const scaleFactor = newHeight / originalWallHeight;
+
+            wallMeshes.forEach(mesh => {
+                const original = meshOriginalTransforms.get(mesh);
+                if (original) {
+                    // Only scale Y (height), preserve current X and Z
+                    const currentScaleX = mesh.scale.x;
+                    const currentScaleZ = mesh.scale.z;
+                    mesh.scale.y = original.scale.y * scaleFactor;
+                    mesh.scale.x = currentScaleX;
+                    mesh.scale.z = currentScaleZ;
+                }
+            });
+
+            // Move doors and windows up/down with wall height
+            doorMeshes.forEach(mesh => {
+                const original = meshOriginalTransforms.get(mesh);
+                if (original) {
+                    mesh.position.y = original.position.y * scaleFactor;
+                }
+            });
+
+            windowMeshes.forEach(mesh => {
+                const original = meshOriginalTransforms.get(mesh);
+                if (original) {
+                    mesh.position.y = original.position.y * scaleFactor;
+                }
+            });
+        }
+
+        function updateDoorHeight(newHeight) {
+            if (!currentModel) return;
+            const scaleFactor = newHeight / originalDoorHeight;
+
+            doorMeshes.forEach(mesh => {
+                const original = meshOriginalTransforms.get(mesh);
+                if (original) {
+                    // Only scale Y (height)
+                    mesh.scale.y = original.scale.y * scaleFactor;
+                }
+            });
+        }
+
+        function updateWindowHeight(newHeight) {
+            if (!currentModel) return;
+            const scaleFactor = newHeight / originalWindowHeight;
+
+            windowMeshes.forEach(mesh => {
+                const original = meshOriginalTransforms.get(mesh);
+                if (original) {
+                    // Only scale Y (height)
+                    mesh.scale.y = original.scale.y * scaleFactor;
+                }
+            });
+        }
+
+        function updateWallThickness(newThickness) {
+            if (!currentModel) return;
+            const scaleFactor = newThickness / originalWallThickness;
+
+            wallMeshes.forEach(mesh => {
+                const original = meshOriginalTransforms.get(mesh);
+                if (original) {
+                    // Only scale thickness (X and Z), preserve current Y
+                    const currentScaleY = mesh.scale.y;
+                    mesh.scale.x = original.scale.x * scaleFactor;
+                    mesh.scale.z = original.scale.z * scaleFactor;
+                    // Keep Y scale unchanged
+                    mesh.scale.y = currentScaleY;
+                }
+            });
+        }
+
+        function updateMeshColor(meshes, hexColor) {
+            if (!currentModel) return;
+
+            // Convert hex to RGB (0-1 range for Three.js)
+            const color = new THREE.Color(hexColor);
+
+            meshes.forEach(mesh => {
+                if (mesh.material) {
+                    // Clone material if it's shared to avoid affecting other meshes
+                    if (!mesh.material.userData.isCloned) {
+                        mesh.material = mesh.material.clone();
+                        mesh.material.userData.isCloned = true;
+                    }
+                    mesh.material.color.copy(color);
+                    mesh.material.needsUpdate = true;
+                }
+            });
+        }
+
+        // Selection and Arrow Button Functions
+        function onMouseDown(event) {
+            event.preventDefault();
+
+            const viewer = document.getElementById('viewer');
+            const rect = viewer.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            // Check for intersection with doors and windows only
+            const selectableObjects = [...doorMeshes, ...windowMeshes];
+            const intersects = raycaster.intersectObjects(selectableObjects, false);
+
+            if (intersects.length > 0) {
+                // Select the object but don't start dragging
+                selectObject(intersects[0].object);
+            } else {
+                // Click on empty space deselects
+                deselectObject();
+            }
+        }
+
+        function selectObject(object) {
+            // Deselect previous object
+            if (selectedObject && selectedObject !== object) {
+                deselectObject();
+            }
+
+            selectedObject = object;
+
+            // Highlight selected object
+            if (selectedObject.material) {
+                selectedObject.userData.originalEmissive = selectedObject.material.emissive.getHex();
+                selectedObject.material.emissive.setHex(0x00ff00); // Green highlight
+            }
+
+            // Update UI
+            const objectType = doorMeshes.includes(selectedObject) ? 'Door' : 'Window';
+            const objectIndex = (doorMeshes.includes(selectedObject) ? doorMeshes : windowMeshes).indexOf(selectedObject) + 1;
+            document.getElementById('selectedObjectName').textContent = `${objectType} #${objectIndex} selected`;
+
+            // Enable arrow buttons
+            document.getElementById('moveUpBtn').disabled = false;
+            document.getElementById('moveDownBtn').disabled = false;
+            document.getElementById('deselectBtn').disabled = false;
+        }
+
+        function deselectObject() {
+            if (selectedObject) {
+                // Restore original emissive color
+                if (selectedObject.material && selectedObject.userData.originalEmissive !== undefined) {
+                    selectedObject.material.emissive.setHex(selectedObject.userData.originalEmissive);
+                }
+                selectedObject = null;
+            }
+
+            // Update UI
+            document.getElementById('selectedObjectName').textContent = 'No object selected';
+
+            // Disable arrow buttons
+            document.getElementById('moveUpBtn').disabled = true;
+            document.getElementById('moveDownBtn').disabled = true;
+            document.getElementById('deselectBtn').disabled = true;
+        }
+
+        function moveSelectedObject(direction) {
+            if (!selectedObject) return;
+
+            const moveStep = 5; // Move 5 units per click
+            const minY = 0;
+            const maxY = parseInt(document.getElementById('wallHeight').value);
+
+            if (direction === 'up') {
+                selectedObject.position.y = Math.min(maxY, selectedObject.position.y + moveStep);
+            } else if (direction === 'down') {
+                selectedObject.position.y = Math.max(minY, selectedObject.position.y - moveStep);
+            }
+
+            // Update the original transform for this mesh so changes persist
+            const original = meshOriginalTransforms.get(selectedObject);
+            if (original) {
+                original.position.copy(selectedObject.position);
+            }
+        }
+
+        function onMouseMove(event) {
+            // Only show hover effect, no dragging
+            if (selectedObject) return; // Don't show hover when object is selected
+
+            const viewer = document.getElementById('viewer');
+            const rect = viewer.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const selectableObjects = [...doorMeshes, ...windowMeshes];
+            const intersects = raycaster.intersectObjects(selectableObjects, false);
+
+            // Remove hover from previous object
+            if (hoveredObject) {
+                if (hoveredObject.material && hoveredObject.userData.originalEmissive !== undefined) {
+                    hoveredObject.material.emissive.setHex(hoveredObject.userData.originalEmissive);
+                }
+                hoveredObject = null;
+                document.body.style.cursor = 'default';
+            }
+
+            // Add hover to new object
+            if (intersects.length > 0) {
+                hoveredObject = intersects[0].object;
+                if (hoveredObject.material) {
+                    if (hoveredObject.userData.originalEmissive === undefined) {
+                        hoveredObject.userData.originalEmissive = hoveredObject.material.emissive.getHex();
+                    }
+                    hoveredObject.material.emissive.setHex(0x444444); // Slight highlight
+                }
+                document.body.style.cursor = 'pointer'; // Change cursor to indicate selectable
+            } else {
+                document.body.style.cursor = 'default';
+            }
+        }
+
+        function onMouseUp(event) {
+            // No longer needed for dragging, but keep for consistency
+        }
+
+        function onWindowResize() {
+            const viewer = document.getElementById('viewer');
+            camera.aspect = viewer.clientWidth / viewer.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) controls.update();
+            if (renderer && scene && camera) renderer.render(scene, camera);
+        }
+
+        // Event Listeners for controls
+        document.getElementById('wallHeight').addEventListener('input', (e) => {
+            const newValue = parseInt(e.target.value);
+            document.getElementById('wallHeightValue').textContent = newValue;
+            updateWallHeight(newValue);
+        });
+
+        document.getElementById('wallThickness').addEventListener('input', (e) => {
+            const newValue = parseInt(e.target.value);
+            document.getElementById('wallThicknessValue').textContent = newValue;
+            updateWallThickness(newValue);
+        });
+
+        document.getElementById('doorHeight').addEventListener('input', (e) => {
+            const newValue = parseInt(e.target.value);
+            document.getElementById('doorHeightValue').textContent = newValue;
+            updateDoorHeight(newValue);
+        });
+
+        document.getElementById('windowHeight').addEventListener('input', (e) => {
+            const newValue = parseInt(e.target.value);
+            document.getElementById('windowHeightValue').textContent = newValue;
+            updateWindowHeight(newValue);
+        });
+
+        // Color change event listeners
+        document.getElementById('wallColor').addEventListener('input', (e) => {
+            updateMeshColor(wallMeshes, e.target.value);
+        });
+
+        document.getElementById('doorColor').addEventListener('input', (e) => {
+            updateMeshColor(doorMeshes, e.target.value);
+        });
+
+        document.getElementById('windowColor').addEventListener('input', (e) => {
+            updateMeshColor(windowMeshes, e.target.value);
+        });
+
+        // Arrow button event listeners
+        document.getElementById('moveUpBtn').addEventListener('click', () => {
+            moveSelectedObject('up');
+        });
+
+        document.getElementById('moveDownBtn').addEventListener('click', () => {
+            moveSelectedObject('down');
+        });
+
+        document.getElementById('deselectBtn').addEventListener('click', () => {
+            deselectObject();
+        });
+
+        document.getElementById('wireframe').addEventListener('change', (e) => {
+            if (currentModel) {
+                currentModel.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.wireframe = e.target.checked;
+                    }
+                });
+            }
+        });
+
+        document.getElementById('showGrid').addEventListener('change', (e) => {
+            if (gridHelper) gridHelper.visible = e.target.checked;
+        });
+
+        document.getElementById('autoRotate').addEventListener('change', (e) => {
+            if (controls) {
+                controls.autoRotate = e.target.checked;
+                controls.autoRotateSpeed = 2.0;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

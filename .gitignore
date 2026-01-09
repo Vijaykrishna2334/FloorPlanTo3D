@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.claude/
+
+# Generated Files
+*.glb
+output.glb
+disney_1_output.glb
+test_furniture_output.glb
+generated_render.png
+*.png.tmp
+
+# Temporary Files
+temp_*.json
+disney_1.json
+metadata.json
+
+# Node modules (if any frontend tooling)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+logs/
+
+# Model weights
+weights/
+*.h5
+*.pth
+
+# Test files
+test_*.py
+*_test.py
+
+# OS Files
+Thumbs.db
+.DS_Store
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Large output files
+*.mp4
+*.avi
+*.mov

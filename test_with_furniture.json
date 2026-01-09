@@ -1,0 +1,83 @@
+{
+    "points": [
+        {
+            "x1": 100,
+            "y1": 100,
+            "x2": 500,
+            "y2": 100
+        },
+        {
+            "x1": 500,
+            "y1": 100,
+            "x2": 500,
+            "y2": 400
+        },
+        {
+            "x1": 500,
+            "y1": 400,
+            "x2": 100,
+            "y2": 400
+        },
+        {
+            "x1": 100,
+            "y1": 400,
+            "x2": 100,
+            "y2": 100
+        },
+        {
+            "x1": 250,
+            "y1": 100,
+            "x2": 300,
+            "y2": 100
+        }
+    ],
+    "classes": [
+        {
+            "name": "wall"
+        },
+        {
+            "name": "wall"
+        },
+        {
+            "name": "wall"
+        },
+        {
+            "name": "wall"
+        },
+        {
+            "name": "door"
+        }
+    ],
+    "Width": 600,
+    "Height": 500,
+    "averageDoor": 50,
+    "furniture": [
+        {
+            "name": "bed",
+            "room": "bedroom",
+            "x": 0.3,
+            "y": 0.3,
+            "width": 200,
+            "depth": 180,
+            "rotation": 0
+        },
+        {
+            "name": "nightstand",
+            "room": "bedroom",
+            "x": 0.55,
+            "y": 0.3,
+            "width": 50,
+            "depth": 40,
+            "rotation": 0
+        },
+        {
+            "name": "desk",
+            "room": "bedroom",
+            "x": 0.7,
+            "y": 0.7,
+            "width": 140,
+            "depth": 70,
+            "rotation": 90
+        }
+    ]
+}

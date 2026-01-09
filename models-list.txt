@@ -1,0 +1,526 @@
+
+🚀 Listing Available Models for Both API Keys...
+
+
+============================================================
+Listing models for API Key #1: AIzaSyBGLEwaWgETC6mH...
+============================================================
+
+📋 Fetching available models...
+
+✅ Found 50 models:
+
+📦 models/embedding-gecko-001
+   Display Name: Embedding Gecko
+   Methods: embedText, countTextTokens
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-2.5-pro-preview-03-25
+   Display Name: Gemini 2.5 Pro Preview 03-25
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.5 Pro Preview 03-25
+
+📦 models/gemini-2.5-flash
+   Display Name: Gemini 2.5 Flash
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.5 Flash, our mid-size multimodal model that supports up to 1 million toke
+
+📦 models/gemini-2.5-pro-preview-05-06
+   Display Name: Gemini 2.5 Pro Preview 05-06
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (May 6th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.5-pro-preview-06-05
+   Display Name: Gemini 2.5 Pro Preview
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (June 5th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.5-pro
+   Display Name: Gemini 2.5 Pro
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable release (June 17th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.0-flash-exp
+   Display Name: Gemini 2.0 Flash Experimental
+   Methods: generateContent, countTokens, bidiGenerateContent
+   Description: Gemini 2.0 Flash Experimental
+
+📦 models/gemini-2.0-flash
+   Display Name: Gemini 2.0 Flash
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.0 Flash
+
+📦 models/gemini-2.0-flash-001
+   Display Name: Gemini 2.0 Flash 001
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.0 Flash, our fast and versatile multimodal model for scaling across diver
+
+📦 models/gemini-2.0-flash-exp-image-generation
+   Display Name: Gemini 2.0 Flash (Image Generation) Experimental
+   Methods: generateContent, countTokens, bidiGenerateContent
+   Description: Gemini 2.0 Flash (Image Generation) Experimental
+
+📦 models/gemini-2.0-flash-lite-001
+   Display Name: Gemini 2.0 Flash-Lite 001
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-flash-lite
+   Display Name: Gemini 2.0 Flash-Lite
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-flash-lite-preview-02-05
+   Display Name: Gemini 2.0 Flash-Lite Preview 02-05
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (February 5th, 2025) of Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-flash-lite-preview
+   Display Name: Gemini 2.0 Flash-Lite Preview
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (February 5th, 2025) of Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-pro-exp
+   Display Name: Gemini 2.0 Pro Experimental
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Experimental release (March 25th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.0-pro-exp-02-05
+   Display Name: Gemini 2.0 Pro Experimental 02-05
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Experimental release (March 25th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-exp-1206
+   Display Name: Gemini Experimental 1206
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Experimental release (March 25th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.0-flash-thinking-exp-01-21
+   Display Name: Gemini 2.5 Flash Preview 05-20
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (April 17th, 2025) of Gemini 2.5 Flash
+
+📦 models/gemini-2.0-flash-thinking-exp
+   Display Name: Gemini 2.5 Flash Preview 05-20
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (April 17th, 2025) of Gemini 2.5 Flash
+
+📦 models/gemini-2.0-flash-thinking-exp-1219
+   Display Name: Gemini 2.5 Flash Preview 05-20
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (April 17th, 2025) of Gemini 2.5 Flash
+
+📦 models/gemini-2.5-flash-preview-tts
+   Display Name: Gemini 2.5 Flash Preview TTS
+   Methods: countTokens, generateContent
+   Description: Gemini 2.5 Flash Preview TTS
+
+📦 models/gemini-2.5-pro-preview-tts
+   Display Name: Gemini 2.5 Pro Preview TTS
+   Methods: countTokens, generateContent
+   Description: Gemini 2.5 Pro Preview TTS
+
+📦 models/learnlm-2.0-flash-experimental
+   Display Name: LearnLM 2.0 Flash Experimental
+   Methods: generateContent, countTokens
+   Description: LearnLM 2.0 Flash Experimental
+
+📦 models/gemma-3-1b-it
+   Display Name: Gemma 3 1B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3-4b-it
+   Display Name: Gemma 3 4B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3-12b-it
+   Display Name: Gemma 3 12B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3-27b-it
+   Display Name: Gemma 3 27B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3n-e4b-it
+   Display Name: Gemma 3n E4B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3n-e2b-it
+   Display Name: Gemma 3n E2B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemini-flash-latest
+   Display Name: Gemini Flash Latest
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Latest release of Gemini Flash
+
+📦 models/gemini-flash-lite-latest
+   Display Name: Gemini Flash-Lite Latest
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Latest release of Gemini Flash-Lite
+
+📦 models/gemini-pro-latest
+   Display Name: Gemini Pro Latest
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Latest release of Gemini Pro
+
+📦 models/gemini-2.5-flash-lite
+   Display Name: Gemini 2.5 Flash-Lite
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.5 Flash-Lite, released in July of 2025
+
+📦 models/gemini-2.5-flash-image-preview
+   Display Name: Nano Banana
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 2.5 Flash Preview Image
+
+📦 models/gemini-2.5-flash-image
+   Display Name: Nano Banana
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 2.5 Flash Preview Image
+
+📦 models/gemini-2.5-flash-preview-09-2025
+   Display Name: Gemini 2.5 Flash Preview Sep 2025
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.5 Flash Preview Sep 2025
+
+📦 models/gemini-2.5-flash-lite-preview-09-2025
+   Display Name: Gemini 2.5 Flash-Lite Preview Sep 2025
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (Septempber 25th, 2025) of Gemini 2.5 Flash-Lite
+
+📦 models/gemini-3-pro-preview
+   Display Name: Gemini 3 Pro Preview
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 3 Pro Preview
+
+📦 models/gemini-3-pro-image-preview
+   Display Name: Nano Banana Pro
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 3 Pro Image Preview
+
+📦 models/nano-banana-pro-preview
+   Display Name: Nano Banana Pro
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 3 Pro Image Preview
+
+📦 models/gemini-robotics-er-1.5-preview
+   Display Name: Gemini Robotics-ER 1.5 Preview
+   Methods: generateContent, countTokens
+   Description: Gemini Robotics-ER 1.5 Preview
+
+📦 models/gemini-2.5-computer-use-preview-10-2025
+   Display Name: Gemini 2.5 Computer Use Preview 10-2025
+   Methods: generateContent, countTokens
+   Description: Gemini 2.5 Computer Use Preview 10-2025
+
+📦 models/embedding-001
+   Display Name: Embedding 001
+   Methods: embedContent
+   Description: Obtain a distributed representation of a text.
+
+📦 models/text-embedding-004
+   Display Name: Text Embedding 004
+   Methods: embedContent
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-embedding-exp-03-07
+   Display Name: Gemini Embedding Experimental 03-07
+   Methods: embedContent, countTextTokens, countTokens
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-embedding-exp
+   Display Name: Gemini Embedding Experimental
+   Methods: embedContent, countTextTokens, countTokens
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-embedding-001
+   Display Name: Gemini Embedding 001
+   Methods: embedContent, countTextTokens, countTokens, asyncBatchEmbedContent
+   Description: Obtain a distributed representation of a text.
+
+📦 models/aqa
+   Display Name: Model that performs Attributed Question Answering.
+   Methods: generateAnswer
+   Description: Model trained to return answers to questions that are grounded in provided sources, along with estim
+
+📦 models/imagen-4.0-generate-preview-06-06
+   Display Name: Imagen 4 (Preview)
+   Methods: predict
+   Description: Vertex served Imagen 4.0 model
+
+📦 models/imagen-4.0-ultra-generate-preview-06-06
+   Display Name: Imagen 4 Ultra (Preview)
+   Methods: predict
+   Description: Vertex served Imagen 4.0 ultra model
+
+
+============================================================
+Listing models for API Key #2: AIzaSyAwIn-9Gv6Chvws...
+============================================================
+
+📋 Fetching available models...
+
+✅ Found 50 models:
+
+📦 models/embedding-gecko-001
+   Display Name: Embedding Gecko
+   Methods: embedText, countTextTokens
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-2.5-pro-preview-03-25
+   Display Name: Gemini 2.5 Pro Preview 03-25
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.5 Pro Preview 03-25
+
+📦 models/gemini-2.5-flash
+   Display Name: Gemini 2.5 Flash
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.5 Flash, our mid-size multimodal model that supports up to 1 million toke
+
+📦 models/gemini-2.5-pro-preview-05-06
+   Display Name: Gemini 2.5 Pro Preview 05-06
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (May 6th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.5-pro-preview-06-05
+   Display Name: Gemini 2.5 Pro Preview
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (June 5th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.5-pro
+   Display Name: Gemini 2.5 Pro
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable release (June 17th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.0-flash-exp
+   Display Name: Gemini 2.0 Flash Experimental
+   Methods: generateContent, countTokens, bidiGenerateContent
+   Description: Gemini 2.0 Flash Experimental
+
+📦 models/gemini-2.0-flash
+   Display Name: Gemini 2.0 Flash
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.0 Flash
+
+📦 models/gemini-2.0-flash-001
+   Display Name: Gemini 2.0 Flash 001
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.0 Flash, our fast and versatile multimodal model for scaling across diver
+
+📦 models/gemini-2.0-flash-exp-image-generation
+   Display Name: Gemini 2.0 Flash (Image Generation) Experimental
+   Methods: generateContent, countTokens, bidiGenerateContent
+   Description: Gemini 2.0 Flash (Image Generation) Experimental
+
+📦 models/gemini-2.0-flash-lite-001
+   Display Name: Gemini 2.0 Flash-Lite 001
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-flash-lite
+   Display Name: Gemini 2.0 Flash-Lite
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-flash-lite-preview-02-05
+   Display Name: Gemini 2.0 Flash-Lite Preview 02-05
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (February 5th, 2025) of Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-flash-lite-preview
+   Display Name: Gemini 2.0 Flash-Lite Preview
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (February 5th, 2025) of Gemini 2.0 Flash-Lite
+
+📦 models/gemini-2.0-pro-exp
+   Display Name: Gemini 2.0 Pro Experimental
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Experimental release (March 25th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.0-pro-exp-02-05
+   Display Name: Gemini 2.0 Pro Experimental 02-05
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Experimental release (March 25th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-exp-1206
+   Display Name: Gemini Experimental 1206
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Experimental release (March 25th, 2025) of Gemini 2.5 Pro
+
+📦 models/gemini-2.0-flash-thinking-exp-01-21
+   Display Name: Gemini 2.5 Flash Preview 05-20
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (April 17th, 2025) of Gemini 2.5 Flash
+
+📦 models/gemini-2.0-flash-thinking-exp
+   Display Name: Gemini 2.5 Flash Preview 05-20
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (April 17th, 2025) of Gemini 2.5 Flash
+
+📦 models/gemini-2.0-flash-thinking-exp-1219
+   Display Name: Gemini 2.5 Flash Preview 05-20
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (April 17th, 2025) of Gemini 2.5 Flash
+
+📦 models/gemini-2.5-flash-preview-tts
+   Display Name: Gemini 2.5 Flash Preview TTS
+   Methods: countTokens, generateContent
+   Description: Gemini 2.5 Flash Preview TTS
+
+📦 models/gemini-2.5-pro-preview-tts
+   Display Name: Gemini 2.5 Pro Preview TTS
+   Methods: countTokens, generateContent
+   Description: Gemini 2.5 Pro Preview TTS
+
+📦 models/learnlm-2.0-flash-experimental
+   Display Name: LearnLM 2.0 Flash Experimental
+   Methods: generateContent, countTokens
+   Description: LearnLM 2.0 Flash Experimental
+
+📦 models/gemma-3-1b-it
+   Display Name: Gemma 3 1B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3-4b-it
+   Display Name: Gemma 3 4B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3-12b-it
+   Display Name: Gemma 3 12B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3-27b-it
+   Display Name: Gemma 3 27B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3n-e4b-it
+   Display Name: Gemma 3n E4B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemma-3n-e2b-it
+   Display Name: Gemma 3n E2B
+   Methods: generateContent, countTokens
+   Description: N/A
+
+📦 models/gemini-flash-latest
+   Display Name: Gemini Flash Latest
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Latest release of Gemini Flash
+
+📦 models/gemini-flash-lite-latest
+   Display Name: Gemini Flash-Lite Latest
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Latest release of Gemini Flash-Lite
+
+📦 models/gemini-pro-latest
+   Display Name: Gemini Pro Latest
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Latest release of Gemini Pro
+
+📦 models/gemini-2.5-flash-lite
+   Display Name: Gemini 2.5 Flash-Lite
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Stable version of Gemini 2.5 Flash-Lite, released in July of 2025
+
+📦 models/gemini-2.5-flash-image-preview
+   Display Name: Nano Banana
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 2.5 Flash Preview Image
+
+📦 models/gemini-2.5-flash-image
+   Display Name: Nano Banana
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 2.5 Flash Preview Image
+
+📦 models/gemini-2.5-flash-preview-09-2025
+   Display Name: Gemini 2.5 Flash Preview Sep 2025
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 2.5 Flash Preview Sep 2025
+
+📦 models/gemini-2.5-flash-lite-preview-09-2025
+   Display Name: Gemini 2.5 Flash-Lite Preview Sep 2025
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Preview release (Septempber 25th, 2025) of Gemini 2.5 Flash-Lite
+
+📦 models/gemini-3-pro-preview
+   Display Name: Gemini 3 Pro Preview
+   Methods: generateContent, countTokens, createCachedContent, batchGenerateContent
+   Description: Gemini 3 Pro Preview
+
+📦 models/gemini-3-pro-image-preview
+   Display Name: Nano Banana Pro
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 3 Pro Image Preview
+
+📦 models/nano-banana-pro-preview
+   Display Name: Nano Banana Pro
+   Methods: generateContent, countTokens, batchGenerateContent
+   Description: Gemini 3 Pro Image Preview
+
+📦 models/gemini-robotics-er-1.5-preview
+   Display Name: Gemini Robotics-ER 1.5 Preview
+   Methods: generateContent, countTokens
+   Description: Gemini Robotics-ER 1.5 Preview
+
+📦 models/gemini-2.5-computer-use-preview-10-2025
+   Display Name: Gemini 2.5 Computer Use Preview 10-2025
+   Methods: generateContent, countTokens
+   Description: Gemini 2.5 Computer Use Preview 10-2025
+
+📦 models/embedding-001
+   Display Name: Embedding 001
+   Methods: embedContent
+   Description: Obtain a distributed representation of a text.
+
+📦 models/text-embedding-004
+   Display Name: Text Embedding 004
+   Methods: embedContent
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-embedding-exp-03-07
+   Display Name: Gemini Embedding Experimental 03-07
+   Methods: embedContent, countTextTokens, countTokens
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-embedding-exp
+   Display Name: Gemini Embedding Experimental
+   Methods: embedContent, countTextTokens, countTokens
+   Description: Obtain a distributed representation of a text.
+
+📦 models/gemini-embedding-001
+   Display Name: Gemini Embedding 001
+   Methods: embedContent, countTextTokens, countTokens, asyncBatchEmbedContent
+   Description: Obtain a distributed representation of a text.
+
+📦 models/aqa
+   Display Name: Model that performs Attributed Question Answering.
+   Methods: generateAnswer
+   Description: Model trained to return answers to questions that are grounded in provided sources, along with estim
+
+📦 models/imagen-4.0-generate-preview-06-06
+   Display Name: Imagen 4 (Preview)
+   Methods: predict
+   Description: Vertex served Imagen 4.0 model
+
+📦 models/imagen-4.0-ultra-generate-preview-06-06
+   Display Name: Imagen 4 Ultra (Preview)
+   Methods: predict
+   Description: Vertex served Imagen 4.0 ultra model
+
+
+============================================================
+✨ Listing Complete!
+============================================================
+

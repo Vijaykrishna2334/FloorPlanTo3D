@@ -1,0 +1,22 @@
+
+🚀 Starting API Key and Model Tests...
+
+
+============================================================
+Testing API Key #1: AIzaSyBGLEwaWgETC6mH...
+============================================================
+
+🎨 Testing image generation with gemini-1.5-flash...
+❌ gemini-1.5-flash FAILED: {"error":{"code":404,"message":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}}
+
+============================================================
+Testing API Key #2: AIzaSyAwIn-9Gv6Chvws...
+============================================================
+
+🎨 Testing image generation with gemini-1.5-flash...
+❌ gemini-1.5-flash FAILED: {"error":{"code":404,"message":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}}
+
+============================================================
+✨ Testing Complete!
+============================================================
+
