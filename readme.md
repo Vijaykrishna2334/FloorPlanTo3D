@@ -1,303 +1,272 @@
-# FloorPlanTo3D: The Next Dimension in Architectural Visualization
+# 🏠 FloorPlanTo3D: AI-Powered 2D to 3D Architectural Visualization
 
 <p align="center">
-  <img src="images/readme/example_a.png" alt="2D Floor Plan to 3D Model Conversion Example A" width="100%"/>
+  <img src="images/readme/3d_viewer_demo.png" alt="FloorPlanTo3D 3D Viewer Demo" width="100%"/>
 </p>
-
-## 🏗️ Overview
-
-**FloorPlanTo3D** introduces an innovative approach to transform 2D floor plan images into customizable, interactive 3D models. The system leverages deep learning and AI to automatically detect architectural elements such as walls, doors, and windows, then generates photorealistic 3D visualizations that can be customized according to your preferences.
-
-### Key Features
-
-- **🤖 AI-Powered Detection**: Uses Mask R-CNN deep learning model to automatically detect walls, windows, and doors from 2D floor plan images
-- **🎨 Photorealistic Rendering**: Generates stunning 3D visualizations with realistic textures and lighting using Google Gemini AI
-- **🪑 Intelligent Furniture Placement**: Automatically places furniture in detected rooms or customize placement manually
-- **📐 Precise 3D Model Generation**: Creates accurate GLB 3D models that can be viewed in any compatible viewer
-- **🌐 Web-Based Interface**: User-friendly web application for uploading floor plans and viewing results
-- **⚡ Fast Processing**: Optimized pipeline for quick 2D to 3D conversion
-- **🔧 Customizable**: Modify room layouts, furniture, and styling options to match your vision
 
 <p align="center">
-  <img src="images/readme/example_b.png" alt="2D Floor Plan to 3D Model Conversion Example B" width="100%"/>
+  <strong>Transform 2D floor plans into interactive 3D models using Mask R-CNN deep learning</strong>
 </p>
 
-## 🚀 How It Works
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python"/>
+  <img src="https://img.shields.io/badge/TensorFlow-2.17-orange.svg" alt="TensorFlow"/>
+  <img src="https://img.shields.io/badge/Model-Mask_RCNN-green.svg" alt="Mask R-CNN"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"/>
+</p>
 
-1. **Upload Floor Plan**: Users select and upload a 2D floor plan image (PNG, JPG, etc.)
-2. **AI Analysis**: The Mask R-CNN model analyzes the image and detects architectural elements
-3. **Structure Detection**: Walls, windows, and doors are identified and extracted with precise coordinates
-4. **Furniture Detection**: Gemini AI analyzes the rendered floor plan to detect and place furniture items
-5. **3D Generation**: The system generates a complete 3D GLB model with textures and furniture
-6. **Visualization**: View and interact with the 3D model in the built-in viewer
-7. **Customization**: Adjust furniture placement, styling, and other parameters as needed
+---
 
-## 🛠️ Technology Stack
+## 🎯 Overview
 
-### Backend
-- **Python 3.10+**: Core programming language
-- **Flask**: Web framework for API endpoints
-- **TensorFlow 2.17**: Deep learning framework
-- **Mask R-CNN**: Instance segmentation for architectural element detection
-- **Google Gemini AI**: Photorealistic rendering and furniture detection
-- **Trimesh**: 3D model generation and manipulation
+**FloorPlanTo3D** transforms 2D floor plan images into fully customizable, interactive 3D models. Using **Mask R-CNN** deep learning for architectural element detection and **Google Gemini AI** for photorealistic rendering.
 
-### Frontend
-- **HTML5/CSS3**: Modern web interface
-- **JavaScript**: Interactive viewer and controls
-- **Three.js**: 3D model rendering and visualization
+### ✨ Key Features
 
-### AI Models
-- **Mask R-CNN**: Trained on architectural floor plan dataset for wall, window, and door detection
-- **Google Gemini**: Multi-modal AI for image generation and object detection
+| Feature | Description |
+|---------|-------------|
+| 🤖 **AI-Powered Detection** | Mask R-CNN detects walls, windows, and doors automatically |
+| 🎨 **Photorealistic Rendering** | Gemini AI generates stunning 3D visualizations |
+| 🪑 **Smart Furniture Placement** | Intelligent auto-placement or manual customization |
+| 📐 **GLB Model Export** | Compatible with any 3D viewer |
+| 🌐 **Web Interface** | Easy-to-use browser-based application |
+| ⚡ **Real-time Controls** | Adjust wall height, thickness, and more |
 
-## 📦 Installation
+---
+
+## 🖼️ Screenshots
+
+<p align="center">
+  <img src="images/readme/example_a.png" alt="Floor Plan Detection Example A" width="100%"/>
+</p>
+
+<p align="center">
+  <img src="images/readme/example_b.png" alt="Floor Plan Detection Example B" width="100%"/>
+</p>
+
+---
+
+## 🧠 The AI Model: Mask R-CNN
+
+### What is Mask R-CNN?
+
+**Mask R-CNN** (Mask Region-based Convolutional Neural Network) is a state-of-the-art instance segmentation model that can:
+- **Detect** objects in an image
+- **Classify** each detected object
+- **Generate pixel-level masks** for each object
+
+### Our Trained Model
+
+| Property | Value |
+|----------|-------|
+| **Architecture** | Mask R-CNN with ResNet-101 backbone |
+| **Training** | 15 epochs on floor plan dataset |
+| **Weights File** | `maskrcnn_15_epochs.h5` (255 MB) |
+| **Classes** | Wall, Window, Door (3 classes + background) |
+| **Framework** | TensorFlow 2.17 with Keras |
+
+### Detection Pipeline
+
+```
+┌─────────────────┐     ┌──────────────┐     ┌─────────────────┐     ┌──────────────┐
+│  2D Floor Plan  │ ──► │  Mask R-CNN  │ ──► │  Detected       │ ──► │  3D Model    │
+│  Image Upload   │     │  Analysis    │     │  Elements       │     │  Generation  │
+└─────────────────┘     └──────────────┘     └─────────────────┘     └──────────────┘
+       PNG/JPG           Instance Seg.         Walls, Doors,          GLB Export
+                                               Windows
+```
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.10 or higher
-- pip (Python package manager)
-- Git
-- Google Gemini API key (for AI rendering features)
+- **Python 3.10+**
+- **pip** (Python package manager)
+- **Git**
+- **8GB RAM** minimum (CPU inference)
+- **Google Gemini API key** (optional, for AI rendering)
 
-### Setup Instructions
+### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Vijaykrishna2334/FloorPlanTo3D.git
-   cd FloorPlanTo3D
-   ```
+```bash
+# 1. Clone the repository
+git clone https://github.com/Vijaykrishna2334/FloorPlanTo3D.git
+cd FloorPlanTo3D
 
-2. **Create and activate virtual environment**
-   ```bash
-   # Windows
-   python -m venv .venv
-   .venv\Scripts\activate
-   
-   # Linux/Mac
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
+# 2. Create virtual environment
+python -m venv .venv
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Windows
+.venv\Scripts\activate
 
-4. **Configure environment variables**
-   
-   Create a `.env` file in the root directory:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   ```
+# Linux/Mac
+source .venv/bin/activate
 
-5. **Download model weights**
-   
-   The Mask R-CNN trained weights are required for 2D detection.
-   - Download `maskrcnn_15_epochs.h5` from [Your Download Link Here]
-   - Place the file in the `weights/` directory:
-   ```
-   weights/maskrcnn_15_epochs.h5
-   ```
+# 3. Install dependencies
+pip install -r requirements.txt
 
-6. **Run the application**
-   ```bash
-   python application.py
-   ```
+# 4. Configure environment (optional - for Gemini AI features)
+echo "GEMINI_API_KEY=your_api_key_here" > .env
 
-   The server will start at `http://localhost:5000`
+# 5. Run the application
+python application.py
+```
 
-## 🎯 Usage
+The server starts at **http://localhost:5000**
 
-### Using the Web Interface
+### Model Weights
 
-1. Open your browser and navigate to `http://localhost:5000`
-2. Click "Upload Floor Plan" and select your 2D floor plan image
-3. Click "Analyze" to detect architectural elements
-4. Review the detected walls, windows, and doors
-5. Click "Generate 3D Model" to create the GLB file
-6. View and interact with the 3D model in the viewer
+The pre-trained Mask R-CNN weights (`maskrcnn_15_epochs.h5`) should be placed in:
+```
+weights/maskrcnn_15_epochs.h5
+```
+
+---
+
+## 💻 Usage
+
+### Web Interface
+
+1. Open **http://localhost:5000** in your browser
+2. Click **"Upload Floor Plan"** and select your image
+3. Click **"Analyze"** to detect architectural elements
+4. Review detection stats (Walls, Doors, Windows, Furniture)
+5. Click **"Generate 3D Model"** to create the GLB file
+6. Use **Model Controls** to adjust:
+   - Wall Height
+   - Wall Thickness
+   - Furniture visibility
 
 ### API Endpoints
 
-#### 1. Predict Structural Elements
-```http
-POST /predict
-Content-Type: multipart/form-data
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/predict` | POST | Detect structural elements (walls, doors, windows) |
+| `/detect-complete` | POST | Full detection including furniture |
+| `/generate-glb` | POST | Generate 3D GLB model |
+| `/generate-render` | POST | Generate photorealistic render |
+| `/output.glb` | GET | Download generated 3D model |
 
-image: <floor_plan_image_file>
+#### Example: Predict Structures
+
+```bash
+curl -X POST -F "image=@floorplan.png" http://localhost:5000/predict
 ```
 
 **Response:**
 ```json
 {
-  "points": [
-    {"x1": 100, "y1": 50, "x2": 500, "y2": 55}
-  ],
-  "classes": [
-    {"name": "wall"}
-  ],
+  "points": [{"x1": 100, "y1": 50, "x2": 500, "y2": 55}],
+  "classes": [{"name": "wall"}],
   "Width": 800,
   "Height": 600,
   "averageDoor": 90.5
 }
 ```
 
-#### 2. Complete Detection (Structure + Furniture)
-```http
-POST /detect-complete
-Content-Type: multipart/form-data
-
-image: <floor_plan_image_file>
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "structures": { ... },
-  "furniture": [
-    {
-      "name": "sofa",
-      "x": 0.5,
-      "y": 0.3,
-      "width": 180,
-      "depth": 90,
-      "rotation": 0,
-      "room": "living_room"
-    }
-  ],
-  "message": "Detected 15 structures and 8 furniture items"
-}
-```
-
-#### 3. Generate Photorealistic Render
-```http
-POST /generate-render
-Content-Type: multipart/form-data
-
-image: <floor_plan_image_file>
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "render_path": "generated_render.png",
-  "message": "Photorealistic render generated successfully"
-}
-```
-
-#### 4. Generate 3D GLB Model
-```http
-POST /generate-glb
-```
-
-**Response:**
-Downloads the generated `floorplan_3d.glb` file
-
-#### 5. Download GLB File
-```http
-GET /output.glb
-```
-
-Returns the generated 3D model file
+---
 
 ## 📁 Project Structure
 
 ```
-FloorPlanTo3D-API-abhi/
-├── application.py              # Main Flask application
+FloorPlanTo3D/
+├── application.py              # Flask API server
 ├── generate_glb_model.py       # 3D model generation
-├── gemini_render.py           # Gemini AI integration
-├── create_furniture_assets.py # Furniture model creation
-├── requirements.txt           # Python dependencies
-├── runtime.txt               # Python version specification
-├── .env                      # Environment variables (not in repo)
-├── weights/                  # Model weights directory
-│   └── maskrcnn_15_epochs.h5
-├── mrcnn/                    # Mask R-CNN implementation
-│   ├── config.py
-│   ├── model.py
-│   └── utils.py
-├── assets/                   # 3D assets and textures
-├── images/                   # Static images
-│   └── readme/              # README documentation images
-└── index.html               # Main web interface
+├── gemini_render.py            # Gemini AI integration
+├── create_furniture_assets.py  # Furniture 3D models
+├── requirements.txt            # Dependencies
+│
+├── mrcnn/                      # Mask R-CNN implementation
+│   ├── config.py               # Model configuration
+│   ├── model.py                # Core Mask R-CNN model
+│   ├── utils.py                # Utility functions
+│   └── visualize.py            # Visualization tools
+│
+├── weights/                    # Model weights
+│   └── maskrcnn_15_epochs.h5   # Trained weights (255 MB)
+│
+├── assets/                     # 3D textures and assets
+├── images/                     # Example inputs and outputs
+└── index.html                  # Web interface
 ```
 
-## 🎨 Supported Floor Plan Types
-
-- **Standard architectural drawings**: CAD exports, blueprint scans
-- **Hand-drawn floor plans**: Sketches with clear wall boundaries
-- **Mixed drawings**: Combination of printed and hand-drawn elements
-- **Image formats**: PNG, JPG, JPEG, BMP
+---
 
 ## ⚙️ Configuration
 
 ### Model Configuration
 
-Modify parameters in `application.py`:
-
 ```python
+# application.py
 class PredictionConfig(Config):
     NAME = "floorPlan_cfg"
     NUM_CLASSES = 1 + 3  # background + wall, window, door
-    GPU_COUNT = 1
+    GPU_COUNT = 1        # Use 0 for CPU-only
     IMAGES_PER_GPU = 1
 ```
 
-### Rendering Styles
+### Supported Input Formats
 
-Available styles for photorealistic rendering:
-- `scandinavian_minimalist`
-- `modern_contemporary`
-- `traditional_classic`
-- `industrial_loft`
+- **PNG, JPG, JPEG, BMP** floor plan images
+- Clear wall boundaries work best
+- Both CAD exports and hand-drawn sketches supported
 
-## 🔍 Troubleshooting
+---
 
-**Issue**: Model weights not found
-- **Solution**: Ensure `maskrcnn_15_epochs.h5` is in the `weights/` directory
+## 🔧 Troubleshooting
 
-**Issue**: Gemini API errors
-- **Solution**: Verify your API key is correctly set in the `.env` file
+| Issue | Solution |
+|-------|----------|
+| **Model weights not found** | Place `maskrcnn_15_epochs.h5` in `weights/` folder |
+| **Out of memory error** | Reduce image size before upload |
+| **Poor detection** | Use high-contrast floor plans with clear walls |
+| **Gemini API errors** | Check `.env` file has valid `GEMINI_API_KEY` |
+| **TensorFlow errors** | Ensure TensorFlow 2.17 is installed correctly |
 
-**Issue**: Low detection accuracy
-- **Solution**: Ensure floor plan has clear, high-contrast walls and proper lighting
+---
 
-**Issue**: Memory errors during 3D generation
-- **Solution**: Reduce image size or simplify the floor plan
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Deep Learning** | TensorFlow 2.17, Mask R-CNN (Matterport) |
+| **Backend** | Python 3.10+, Flask, NumPy, OpenCV |
+| **3D Generation** | Trimesh, GLB format |
+| **AI Rendering** | Google Gemini API |
+| **Frontend** | HTML5, CSS3, JavaScript, Three.js |
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file.
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/NewFeature`)
+3. Commit changes (`git commit -m 'Add NewFeature'`)
+4. Push to branch (`git push origin feature/NewFeature`)
 5. Open a Pull Request
 
-## 📧 Contact
-
-**Project Maintainer**: Vijaykrishna2334
-
-**Repository**: [https://github.com/Vijaykrishna2334/FloorPlanTo3D](https://github.com/Vijaykrishna2334/FloorPlanTo3D)
+---
 
 ## 🙏 Acknowledgments
 
-- Mask R-CNN implementation based on [Matterport's Mask_RCNN](https://github.com/matterport/Mask_RCNN)
-- Google Gemini AI for photorealistic rendering capabilities
-- TensorFlow and Keras teams for the deep learning framework
-- Contributors and users who have helped improve this project
+- [Matterport Mask R-CNN](https://github.com/matterport/Mask_RCNN) - Base implementation
+- [Google Gemini AI](https://ai.google.dev/) - Photorealistic rendering
+- TensorFlow & Keras teams
 
 ---
 
 <p align="center">
-  Made with ❤️ for architects, designers, and visualization enthusiasts
+  <strong>Made with ❤️ for architects, designers, and visualization enthusiasts</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Vijaykrishna2334/FloorPlanTo3D">⭐ Star this repo if you find it useful!</a>
 </p>
